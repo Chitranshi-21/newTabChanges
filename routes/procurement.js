@@ -420,7 +420,7 @@ router.post('/insertAsssetForm',(request,response)=>{
 }
 console.log(planDate+'  +'+actualDate);
 const schema=joi.object({
-    assetRequisitionName:joi.string().required().label('Please Fill Asset Requition Name'),
+    assetRequisitionName:joi.string().required().label('Please Fill Asset Requisition Name'),
     project:joi.string().required().label('Please choose Project/Department'),
 })
 let result=schema.validate({assetRequisitionName,project});
@@ -643,20 +643,22 @@ router.post('/nonItProducts', (request,response) => {
    let justify=request.body.justification;
    console.log('justified'+justify); */
 
-   const{state,district,unit,unitCost,itemsCategory,items,itemSpecification,quantity,budget}=request.body;
+   const{state,district,unit,unitCost,vendor,itemsCategory,items,itemSpecification,quantity,budget}=request.body;
    let numberOfRows,lstNonItProcurement = [];
    if(typeof(nonItFormResult.quantity) != 'object')
    {
 
         let schema=joi.object({
-            state:joi.string().required().label('Please Choose State'),
-             itemsCategory:joi.string().required().label('Choose itemsCategory & District If Your Choose UP Or UK'),
-             items:joi.string().required().label('Choose your Item'),
-            itemSpecification:joi.string().required().label('Fill your Item Specification'),          
-            quantity:joi.number().required().label('Enter your Quantity'),
-            budget:joi.number().required().label('fill Your Budget '),
+            state:joi.string().required().label('Please select State.'),
+             district:joi.string().required().label('Please select District.'),
+             itemsCategory:joi.string().required().label('Please select Item Category.'),
+             items:joi.string().required().label('Please fill Item'),
+             vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
+            itemSpecification:joi.string().required().label('Please fill Item Specification.'),          
+            quantity:joi.number().required().label('Please enter Quantity.'),
+            budget:joi.number().required().label('Please enter Budget.'),
         })
-        let result=schema.validate({state,items,itemsCategory,itemSpecification,quantity,budget});
+        let result=schema.validate({state,items,itemsCategory,district,vendor,itemSpecification,quantity,budget});
         console.log('validation hsh '+JSON.stringify(result.error));
         if(result.error){
             console.log('fd'+result.error);
@@ -664,7 +666,7 @@ router.post('/nonItProducts', (request,response) => {
         }
         else{
             if(nonItFormResult.quoteNum<3 && (nonItFormResult.justification==null || nonItFormResult.justification=="")){
-                    response.send('Please Enter Your Justification for Quote less than 3');    
+                    response.send('Please enter Justification because quote count is not equal to 3.');    
            }
            else{
             let singleRecordValues = [];
@@ -699,15 +701,17 @@ router.post('/nonItProducts', (request,response) => {
         for(let i=0; i< numberOfRows ; i++)
         { 
             let schema=joi.object({
-                state:joi.string().required().label('Please Choose State'),
-                itemsCategory:joi.string().required().label('Choose itemsCategory & District If Your Choose UP Or UK'),
-                items:joi.string().required().label('Choose your Item'),
-                itemSpecification:joi.string().required().label('Fill your ITem Specification'),          
-                quantity:joi.number().required().label('Enter your Quantity'),
-                budget:joi.number().required().label('fill Your Budget '),
+                state:joi.string().required().label('Please select State.'),
+                district:joi.string().required().label('Please select District.'),
+                itemsCategory:joi.string().required().label('Please select Item Category.'),
+                items:joi.string().required().label('Please fill Item'),
+                vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
+                itemSpecification:joi.string().required().label('Please fill Item Specification.'),          
+                quantity:joi.number().required().label('Please enter Quantity.'),
+                budget:joi.number().required().label('Please enter Budget.'),
     
             })
-            let result=schema.validate({state:state[i],items:items[i],itemsCategory:itemsCategory[i],itemSpecification:itemSpecification[i],quantity:quantity[i],budget:budget[i]});
+            let result=schema.validate({state:state[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],quantity:quantity[i],budget:budget[i]});
             console.log('validation REsult mul'+JSON.stringify(result.error));
             if(result.error){
                 console.log('Validation error'+result.error);
@@ -715,7 +719,7 @@ router.post('/nonItProducts', (request,response) => {
             }
             else{
                 if(nonItFormResult.quoteNum[i]<3 &&(nonItFormResult.justification[i]==null || nonItFormResult.justification[i]=="")){               
-                        response.send('Please Enter your Justification for Quote less than 3');    
+                        response.send('Please enter Justification because quote count is not equal to 3.');    
                 }
                 else{
 
@@ -799,7 +803,7 @@ router.post('/itProducts', (request,response) => {
 
     console.log('Inside ItProducts Post Method');
     let itFormResult = request.body;
-    const{state,items,district,unitCost,unit,itemSpecification,quantity,budget}=request.body;
+    const{state,items,district,vendor,itemCategory,unitCost,unit,itemSpecification,quantity,budget}=request.body;
     
     console.log('itFormResult  '+JSON.stringify(itFormResult));
 
@@ -807,14 +811,16 @@ router.post('/itProducts', (request,response) => {
     if(typeof(itFormResult.quantity) != 'object')
     {
         const schema = joi.object({
-            state:joi.string().required().label('Please chose State First'),
-         //   district:joi.string().label('chose district') 
-         items:joi.string().required().label('Choose your ITEM and District if State is UP or UK '),
-         itemSpecification:joi.string().required().label('please Enter Item Specification'),
-         quantity:joi.number().required().label('Enter Your Quanity '),
-         budget:joi.number().required().label('Enter Your Budget'),
+             state:joi.string().required().label('Please select State.'),
+             district:joi.string().required().label('Please select District.'),
+             itemCategory:joi.string().required().label('Please select Item Category.'),
+             items:joi.string().required().label('Please fill Item'),
+             vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
+             itemSpecification:joi.string().required().label('Please fill Item Specification.'),
+             quantity:joi.number().required().label('Please enter Quantity.'),
+             budget:joi.number().required().label('Please enter Budget.'),
         })
-        let result=schema.validate({state,items,itemSpecification,quantity,budget});
+        let result=schema.validate({state,district,itemCategory,items,vendor,itemSpecification,quantity,budget});
         console.log('validation REsult '+JSON.stringify(result.error));
         if(result.error){
             console.log('fd'+result.error);
@@ -822,7 +828,7 @@ router.post('/itProducts', (request,response) => {
         }
         else{
             if(itFormResult.quoteNum<3 &&(itFormResult.justification==null || itFormResult.justification=="")){
-                    response.send('Please Enter Your Justification for Quote less than 3');     
+                    response.send('Please enter Justification because quote count is not equal to 3.');     
              }
              else{
                 let singleItProductRecordValue = [];
@@ -854,14 +860,15 @@ router.post('/itProducts', (request,response) => {
         for(let i=0; i< numberOfRows ; i++)
         {
             const schema = joi.object({
-                state:joi.string().required().label('Please chose State First'),
-             //   district:joi.string().label('chose district') 
-             items:joi.string().required().label('Choose your ITEM and District if State is UP or UK '),
-             itemSpecification:joi.string().required().label('please Enter Item Specification'),
-             quantity:joi.number().required().label('Enter Your Quanity '),
-             budget:joi.number().required().label('Enter Your Budget'),
+                state:joi.string().required().label('Please select State.'),
+                district:joi.string().required().label('Please select District.'),
+                items:joi.string().required().label('Please fill Item'),
+                vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
+                itemSpecification:joi.string().required().label('Please fill Item Specification.'),          
+                quantity:joi.number().required().label('Please enter Quantity.'),
+                budget:joi.number().required().label('Please enter Budget.'),
             })
-            let result=schema.validate({state:state[i],items:items[i],itemSpecification:itemSpecification[i],quantity:quantity[i],budget:budget[i]});
+            let result=schema.validate({state:state[i],items:items[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],quantity:quantity[i],budget:budget[i]});
             console.log('validation REsult '+JSON.stringify(result.error));
             if(result.error){
                 console.log('fd'+result.error);
@@ -869,7 +876,7 @@ router.post('/itProducts', (request,response) => {
             }
             else{                
                 if(itFormResult.quoteNum[i]<3 &&(itFormResult.justification[i]==null || itFormResult.justification[i]=="")){
-                    response.send('Please Enter Your Justificaton for Quote less than 3 in row number');     
+                    response.send('Please enter Your Justificaton for Quote less than 3 in row number');     
              }
              else{
                 let singleItProductRecordValue = [];
@@ -2062,6 +2069,13 @@ router.get('/assetRequisitionViewRel/:parentExpenseId',verify,(request, response
         response.render('AssetLandingPage',{objUser,parentprocurementId:parentprocurementId}); 
 })
 
+router.get('/ItemDescriptionViewRel/:vendorId',verify,(request, response) => {
+    var vendorId = request.params.vendorId;
+    console.log('vendorId  '+vendorId);
+     let objUser=request.user;
+        console.log('user '+objUser);  
+        response.render('ImpaneledLandingPage',{objUser,vendorId:vendorId}); 
+})
 
     
 module.exports = router;

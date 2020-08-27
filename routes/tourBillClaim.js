@@ -386,13 +386,15 @@ router.post('/airRailBusCharges',verify, (request, response) => {
           {
 
             const schema = joi.object({
-              arrival_Dt:joi.date().label('plz enter the Arrival Date less tha n Departure date and Today '),
-              departure_Date:joi.date().max('now').label('departure_Date must be less than Today').required(),
-              arrival_Date:joi.date().less(joi.ref('departure_Date')).label('Arrival Date must be less than departure_Date').required(),
-              projectTask:joi.string().required().label('Select Activity Code '),
-              arrival_Station:joi.string().required().label('Please fill Arrivial Statton'),
-              departure_Station:joi.string().required().label('Please fill Departure Station'),
-              amount:joi.number().required().label('Amount cannot be null'),
+              arrival_Dt:joi.date().label('Please enter Arrival Date'),
+              arrival_Dt:joi.date().max('now').label('Arrival Date must be less than today'),
+              departure_Date:joi.date().label('Please enter Departure Date'),
+              departure_Date:joi.date().max('now').label('Departure Date must be less than today'),
+              arrival_Date:joi.date().less(joi.ref('departure_Date')).label('Arrival Date must be less than Departure Date').required(),
+              projectTask:joi.string().required().label('Please select Activity Code '),
+              arrival_Station:joi.string().required().label('Please select Arrivial Station'),
+              departure_Station:joi.string().required().label('Please select Departure Station'),
+              amount:joi.number().required().label('Please fill Amount'),
               imgpath:joi.string().invalid('deme').required().label('Upload your File/Attachment'),
           })
           let Result=schema.validate({projectTask:bdy.projectTask[i],arrival_Dt:bdy.arrival_Date[i],departure_Date:bdy.departure_Date[i],arrival_Date:bdy.arrival_Date[i],amount:bdy.amount[i],arrival_Station:bdy.arrival_Station[i],departure_Station:bdy.departure_Station[i],imgpath:bdy.imgpath[i]});

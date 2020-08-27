@@ -33,6 +33,7 @@
        console.log('response  '+JSON.stringify(response));
        if(response.length > 0)
            {
+          
            response.forEach((eachActivity) => {
            console.log('eachActivity.name '+eachActivity.name);
            $('#act')
@@ -96,7 +97,8 @@
     <div class="row mt-5 mb-3 align-items-center">
         <div class="col-md-6">
           <button class="btn btn-primary btn-md bg-gray"  id="createAssetRequisitionFormButton">Create New</button>
-            <a  href="/procurement/" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
+           
+          <a href="/procurement/" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
                </div>
         <div class="col-md-2">
         <input type="text" class="form-control" placeholder="Search" id="searchField" style="margin-top: 5px;">
@@ -161,15 +163,17 @@
 
  <div class="form-group"> 
  <div class="row">
- <div class="col-md-6">
- <label for="actualDate">Requested Closure Actual Date</label>
- <input type="date" class="form-control" id="actualDate" value="" name="actualDate" >
- </div>
 
  <div class="col-md-6">
  <label for="planDate">Requested Closure Plan Date</label>
  <input type="date" class="form-control" id="planDate" value="" name="planDate" >
  </div>
+
+ <div class="col-md-6">
+  <label for="actualDate">Requested Closure Actual Date</label>
+  <input type="date" class="form-control" id="actualDate" value="" name="actualDate" >
+  </div>
+
  </div>
  </div> 
 
@@ -179,7 +183,7 @@
  <div class="col-md-6">
  <label for="act">Activity code</label>
  <select id="act" class="form-control act" name="act">
-
+  <option value="">None</option>
 </select>
  </div>
 
@@ -559,7 +563,7 @@
     <i class="fa fa-angle-double-right mr-3"></i>Procurement-Non IT
     </button>
     <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
-    <a href="#" target="_blank" class="btn btn-primary float-right procurementNonIT" id="pettyCashButton" style="color:white;" >New</a>
+    <a href="#" class="btn btn-primary float-right procurementNonIT" id="pettyCashButton" style="color:white;" >New</a>
     </h5>
     </div>
    
@@ -634,7 +638,7 @@
     <i class="fa fa-angle-double-right mr-3"></i>Notes/Attachments 
     </button>
     <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
-    <a href="#" target="_blank" class="btn btn-primary float-right notes" id="notes" style="color:white;" >New</a>
+    <a href="#" class="btn btn-primary float-right notes" id="notes" style="color:white;" >New</a>
     </h5>
     </div>
    
@@ -1044,7 +1048,7 @@
                             itProductTable += '<td>'+eachIt.quantity__c +'</td>';
                             itProductTable += '<td>'+eachIt.budget__c +'</td></tr>';      
                         })
-                        itProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementItListView/'+assetId+'">ViewlAll</a></centre></td>';
+                        itProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementItListView/'+assetId+'">View All</a></centre></td>';
                             $('#procuremnetItTable').empty();
                         $('#procuremnetItTable').append(itProductTable);   
                     }

@@ -394,19 +394,17 @@
                                 vendorDetailRow += '<tr>';
                                     vendorDetailRow += '<td><strong>  Bank Account No.<strong></td>';
                                     vendorDetailRow += '<td>'+eachRecord.bank_account_no__c+'</td>';
-                                    vendorDetailRow += '<td><strong> Owner<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.ownerid+'</td>';
-                                vendorDetailRow += '</tr>';
-                                vendorDetailRow += '<tr>';
                                     vendorDetailRow += '<td><strong>Others/etc<strong></td>';
                                     vendorDetailRow += '<td>'+eachRecord.others__c+'</td>';
-                                    vendorDetailRow += '<td><strong>Quote Public URL<strong></td>';
-                                        vendorDetailRow += '<td>'+eachRecord.quote_public_url__c+'</td>';
-                                vendorDetailRow += '</tr>'; 
+                                vendorDetailRow += '</tr>';
                                 vendorDetailRow += '<tr>';
+                                  
+                                    vendorDetailRow += '<td><strong>Quote Public URL<strong></td>';
+                                        vendorDetailRow += '<td>'+'<a href="'+eachRecord.quote_public_url__c+'" target="_blank">Click to View </a></td>';
                                         vendorDetailRow += '<td><strong>GST No.<strong></td>';
                                         vendorDetailRow += '<td>'+eachRecord.gst_no__c+'</td>';
-                                vendorDetailRow += '</tr>';
+                                vendorDetailRow += '</tr>'; 
+                               
                                     $('#vendorDetail').html(vendorDetailRow);
 
                         })
@@ -424,7 +422,7 @@
                         itemDescription += '<td>'+each.unit__c +'</td>'; 
                         itemDescription += '<td>'+each.per_unit_cost__c +'</td></tr>';
                     })
-                    itemDescription+=  '<td colspan="6"><center><a target="_blank" href="/procurement/ItemDescriptionListView?vendorId='+vendorIDS+'">ViewlAll</a></centre></td>';
+                    itemDescription+=  '<td colspan="6"><center><a target="_blank" href="/procurement/ItemDescriptionListView?vendorId='+vendorIDS+'">View All</a></centre></td>';
                    
                    console.log('iddd'+data.VendorDetail.sfid);
                         $('#ItemDescriptionTable').empty();
